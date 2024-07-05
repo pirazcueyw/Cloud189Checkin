@@ -1,4 +1,5 @@
 name: Cloud check in action
+
 on:
   push:
     branches:
@@ -7,7 +8,7 @@ on:
     types: started
   workflow_dispatch:
   schedule:
-    - cron: 35 3 * * *
+    - cron: 15 2 * * *
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -15,7 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js environment
+
         uses: actions/setup-node@v3
+
         with:
           node-version: 14
       - name: init
@@ -23,6 +26,8 @@ jobs:
       - name: run
         id: run
         uses: nick-fields/retry@v2
+
+
         env:
           TY_USER_NAME: ${{secrets.TY_USER_NAME}}
           TY_PASSWORD: ${{secrets.TY_PASSWORD}}
